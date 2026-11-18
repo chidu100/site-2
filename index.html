@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f0e8" id="theme-color-meta">
-  <meta name="description" content="Sinclair Anusiem is a Shopify-focused Customer Success and Technical Support professional with a frontend development background. Helping merchants solve problems and build better commerce experiences.">
+  <meta name="description" content="Sinclair Anusiem is a customer success and technical support professional with a frontend development background. Helping people solve problems, understand technology, and move forward with confidence.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Sinclair Anusiem — Customer Success × Technology">
-  <meta property="og:description" content="Shopify, customer experience, technical troubleshooting, and thoughtful web experiences.">
+  <meta property="og:description" content="Customer success, technical support, frontend development, and thoughtful digital experiences.">
   <meta property="og:image" content="assets/images/sinclair-anusiem.webp">
   <title>Sinclair Anusiem — Customer Success × Technology</title>
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
@@ -18,9 +18,15 @@
     (() => {
       try {
         const saved = localStorage.getItem("sinclair-theme");
-        const systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-        document.documentElement.dataset.theme = saved || (systemDark ? "dark" : "light");
-      } catch (_) { document.documentElement.dataset.theme = "light"; }
+        const mode = ["auto", "light", "dark"].includes(saved) ? saved : "auto";
+        const hour = new Date().getHours();
+        const timeTheme = hour >= 6 && hour < 18 ? "light" : "dark";
+        document.documentElement.dataset.themeMode = mode;
+        document.documentElement.dataset.theme = mode === "auto" ? timeTheme : mode;
+      } catch (_) {
+        document.documentElement.dataset.themeMode = "auto";
+        document.documentElement.dataset.theme = "light";
+      }
     })();
   </script>
   <link rel="stylesheet" href="styles.css">
@@ -36,7 +42,7 @@
       <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span></button>
       <nav class="nav-links" id="primary-nav" aria-label="Main navigation">
         <a href="#about">About</a><a href="#work">Selected work</a><a href="#approach">How I work</a><a href="#contact">Contact</a>
-        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Dark mode</span></button>
+        <button class="theme-toggle" type="button" aria-label="Theme mode: automatic" aria-pressed="false"><span class="theme-icon" aria-hidden="true">◐</span><span class="theme-label">Auto · Light</span></button>
         <a class="nav-resume" href="assets/docs/Sinclair-Anusiem.pdf" target="_blank" rel="noopener">Resume <span>↗</span></a>
       </nav>
     </div>
@@ -47,9 +53,9 @@
       <div class="hero-copy">
         <p class="eyebrow"><span class="status-dot"></span> OPEN TO THE RIGHT OPPORTUNITY <span class="eyebrow-line"></span></p>
         <h1 id="hero-title">I make complex<br><em>things feel</em> <span>simple.</span></h1>
-        <p class="hero-intro">I'm Sinclair Anusiem — a Shopify-focused customer success professional with a frontend mindset. I help people get unstuck, understand their tools, and move forward with confidence.</p>
+        <p class="hero-intro">I'm Sinclair Anusiem — a customer success and technical support professional with a frontend development background. I help people solve problems, understand technology, and move forward with confidence.</p>
         <div class="hero-actions"><a class="button button-dark" href="#work">Explore my work <span>↘</span></a><a class="text-link" href="assets/docs/Sinclair-Anusiem.pdf" target="_blank" rel="noopener">Download résumé <span>↗</span></a></div>
-        <div class="hero-foot"><span>SHOPIFY / CUSTOMER SUCCESS / FRONTEND</span><span>01 — 05</span></div>
+        <div class="hero-foot"><span>CUSTOMER SUCCESS / TECHNICAL SUPPORT / FRONTEND</span><span>01 — 05</span></div>
       </div>
       <div class="hero-visual">
         <div class="portrait-frame"><img src="assets/images/sinclair-anusiem.webp" alt="Portrait of Sinclair Anusiem" fetchpriority="high"></div>
@@ -64,7 +70,7 @@
       <p class="eyebrow section-index">01 / A QUICK INTRODUCTION</p>
       <div class="intro-content">
         <h2>Good support isn't just an answer. It's <em>understanding</em> what someone is trying to achieve.</h2>
-        <div class="intro-aside"><p>My work sits between people and technology: customer conversations, Shopify storefronts, product troubleshooting, and the small details that make a digital experience work better.</p><a class="arrow-link" href="mailto:sinclairanusiem00@gmail.com">Let's talk <span>↗</span></a></div>
+        <div class="intro-aside"><p>My work sits between people and technology: customer conversations, digital products, technical troubleshooting, and the small details that make an experience work better.</p><a class="arrow-link" href="mailto:sinclairanusiem00@gmail.com?subject=Hello%20Sinclair&body=Hi%20Sinclair%2C%0A%0A">Let's talk <span>↗</span></a></div>
       </div>
     </section>
 
@@ -97,12 +103,12 @@
       </div>
     </section>
 
-    <section class="education-strip section-wrap"><p class="eyebrow section-index">05 / THE FOUNDATION</p><div><h2>Computer Science</h2><p>B.Tech, Second Class Honours (Upper Division) · The Federal University of Technology, Owerri · 2024</p></div><a href="assets/docs/Sinclair-Anusiem.pdf" target="_blank" rel="noopener">Full résumé <span>↗</span></a></section>
+    <section class="education-strip section-wrap"><p class="eyebrow section-index">05 / THE FOUNDATION</p><div><h2>Computer Science</h2><p>B.Tech · The Federal University of Technology, Owerri · 2024</p></div><a href="assets/docs/Sinclair-Anusiem.pdf" target="_blank" rel="noopener">Full résumé <span>↗</span></a></section>
 
-    <section class="contact-section section-wrap" id="contact"><div class="contact-kicker"><p class="eyebrow">HAVE A GOOD CHALLENGE?</p><span>LET'S MAKE PROGRESS.</span></div><h2>Let's make<br>something <em>better.</em></h2><div class="contact-bottom"><p>I'm interested in thoughtful teams, useful products, and opportunities to make a real difference for customers.</p><a class="contact-email" href="mailto:sinclairanusiem00@gmail.com">sinclairanusiem00@gmail.com <span>↗</span></a></div></section>
+    <section class="contact-section section-wrap" id="contact"><div class="contact-kicker"><p class="eyebrow">HAVE A GOOD CHALLENGE?</p><span>LET'S MAKE PROGRESS.</span></div><h2>Let's make<br>something <em>better.</em></h2><div class="contact-bottom"><p>I'm interested in thoughtful teams, useful products, and opportunities to make a real difference for customers.</p><a class="contact-email" href="mailto:sinclairanusiem00@gmail.com?subject=Hello%20Sinclair&body=Hi%20Sinclair%2C%0A%0A" aria-label="Email Sinclair at sinclairanusiem00@gmail.com">sinclairanusiem00@gmail.com <span>↗</span></a></div></section>
   </main>
 
-  <footer class="site-footer"><a class="wordmark" href="#top">SA<span>®</span></a><p>Thoughtfully solving problems, one experience at a time.</p><div class="social-links"><a href="https://www.linkedin.com/in/sinclair-anusiem/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/chidu100" target="_blank" rel="noopener">GitHub ↗</a><a href="mailto:sinclairanusiem00@gmail.com">Email ↗</a></div><small>© <span id="year">2026</span> SINCLAIR ANUSIEM</small></footer>
+  <footer class="site-footer"><a class="wordmark" href="#top">SA<span>®</span></a><p>Thoughtfully solving problems, one experience at a time.</p><div class="social-links"><a href="https://www.linkedin.com/in/sinclair-anusiem/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/chidu100" target="_blank" rel="noopener">GitHub ↗</a><a href="mailto:sinclairanusiem00@gmail.com?subject=Hello%20Sinclair&body=Hi%20Sinclair%2C%0A%0A">Email ↗</a></div><small>© <span id="year">2026</span> SINCLAIR ANUSIEM</small></footer>
   <script src="script.js" defer></script>
 </body>
 </html>

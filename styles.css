@@ -85,3 +85,27 @@
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle { transition:none; }
 }
+
+/* Theme contrast refinements */
+.theme-icon { color: #66852b; }
+:root[data-theme="dark"] .theme-icon,
+:root[data-theme="dark"] .hero-stamp small,
+:root[data-theme="dark"] .text-link span,
+:root[data-theme="dark"] .arrow-link span,
+:root[data-theme="dark"] .education-strip>a span,
+:root[data-theme="dark"] .cap-number,
+:root[data-theme="dark"] .filter-btn span { color: var(--lime); }
+:root[data-theme="dark"] .nav-links>a:not(.nav-resume) { color: #e0e5ed; }
+:root[data-theme="dark"] .nav-links>a:hover { color: var(--lime); }
+:root[data-theme="dark"] .theme-toggle { border-color: #778397; color: #f1eee6; }
+:root[data-theme="dark"] .menu-toggle span { background: #f1eee6; }
+:root[data-theme="dark"] .hero-stamp { border-color: #f1eee6; }
+:root[data-theme="dark"] .education-strip>a { border-color: #f1eee6; }
+:root[data-theme="dark"] .arrow-link { border-color: #f1eee6; }
+:root[data-theme="dark"] .contact-email { color: #111827; border-color: #111827; }
+
+@media (max-width: 640px) {
+  /* Put the portrait ahead of the introduction on narrow screens. */
+  .hero-visual { order: -1; }
+  .hero-copy { order: 0; }
+}

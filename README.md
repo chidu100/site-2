@@ -44,3 +44,9 @@ The source archive contained a roughly 95 MB MP4. It was not included in this re
 
 ## Appearance themes
 The site includes a light/dark mode switch in the navigation. It follows the visitor's system appearance on first visit, remembers their choice in the browser, and can be switched at any time. The preference is stored locally and does not require an account.
+
+## Theme behaviour
+- Automatic theme is the default for first-time visitors and follows the visitor's own local browser time.
+- Light mode runs from 6:00 AM through 5:59 PM; dark mode runs from 6:00 PM through 5:59 AM.
+- The theme control cycles between Automatic, Light, and Dark. Manual choices are saved in local storage; selecting Automatic returns to the time-based schedule.
+- The email links open a pre-addressed email draft in the visitor's configured default mail application. If no mail application or webmail handler is configured in the visitor's browser, the browser may not open a compose window.

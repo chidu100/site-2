@@ -1,25 +1,47 @@
 (() => {
+  const root = document.documentElement;
   const themeButton = document.querySelector('.theme-toggle');
   const themeIcon = themeButton?.querySelector('.theme-icon');
   const themeLabel = themeButton?.querySelector('.theme-label');
   const themeMeta = document.getElementById('theme-color-meta');
-  const applyTheme = theme => {
-    document.documentElement.dataset.theme = theme;
+  const validModes = ['auto', 'light', 'dark'];
+  let themeMode = validModes.includes(root.dataset.themeMode) ? root.dataset.themeMode : 'auto';
+
+  const getTimeTheme = () => {
+    const hour = new Date().getHours();
+    return hour >= 6 && hour < 18 ? 'light' : 'dark';
+  };
+
+  const applyTheme = () => {
+    const theme = themeMode === 'auto' ? getTimeTheme() : themeMode;
     const dark = theme === 'dark';
+    root.dataset.themeMode = themeMode;
+    root.dataset.theme = theme;
     if (themeButton) {
-      themeButton.setAttribute('aria-pressed', String(dark));
-      themeButton.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+      const label = themeMode === 'auto' ? `Auto · ${dark ? 'Dark' : 'Light'}` : `${dark ? 'Dark' : 'Light'} mode`;
+      themeButton.setAttribute('aria-label', `Theme mode: ${themeMode === 'auto' ? `automatic, currently ${theme}` : themeMode}. Activate to change theme preference.`);
+      themeButton.setAttribute('aria-pressed', String(themeMode !== 'auto'));
+      if (themeIcon) themeIcon.textContent = themeMode === 'auto' ? '◐' : (dark ? '☀' : '☾');
+      if (themeLabel) themeLabel.textContent = label;
     }
-    if (themeIcon) themeIcon.textContent = dark ? '☀' : '☾';
-    if (themeLabel) themeLabel.textContent = dark ? 'Light mode' : 'Dark mode';
     if (themeMeta) themeMeta.setAttribute('content', dark ? '#111827' : '#f5f0e8');
   };
-  applyTheme(document.documentElement.dataset.theme || 'light');
+
+  applyTheme();
   themeButton?.addEventListener('click', () => {
-    const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    applyTheme(nextTheme);
-    try { localStorage.setItem('sinclair-theme', nextTheme); } catch (_) { /* Theme still works for this visit. */ }
+    // Cycle through automatic, manual light, and manual dark preferences.
+    themeMode = themeMode === 'auto' ? 'light' : themeMode === 'light' ? 'dark' : 'auto';
+    try { localStorage.setItem('sinclair-theme', themeMode); } catch (_) { /* The selection still works for this visit. */ }
+    applyTheme();
   });
+
+  // Keep automatic mode aligned with the visitor's local clock if the page stays open.
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && themeMode === 'auto') applyTheme();
+  });
+  window.setInterval(() => {
+    if (themeMode === 'auto') applyTheme();
+  }, 60_000);
 
   const menuButton = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav-links');
@@ -56,10 +78,10 @@
     projects.forEach(card => { card.hidden = filter !== 'all' && card.dataset.category !== filter; });
   }));
 
-  const year = document.getElementById('year');
   const currentYear = new Date().getFullYear();
-  if (year) year.textContent = currentYear;
+  const year = document.getElementById('year');
   const stampYear = document.getElementById('stamp-year');
+  if (year) year.textContent = currentYear;
   if (stampYear) stampYear.textContent = currentYear;
 
   // Progressive scroll reveals: content remains visible if motion APIs are unavailable.
